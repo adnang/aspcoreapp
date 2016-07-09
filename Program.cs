@@ -13,9 +13,9 @@ namespace Playground
                 .UseEnvironment(EnvironmentName.Development)
                 .UseStartup<Startup>();
 
-            if (args.Length > 0)    
+            if (args.Length > 0)
                 hostBuilder.UseEnvironment(args[0]);
-            
+
             hostBuilder.Build().Run();
         }
     }
