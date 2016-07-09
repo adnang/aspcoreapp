@@ -9,7 +9,7 @@ namespace aspnetcoreapp
 {
     public class Startup
     {
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env)
         {
             app.Run(context =>
