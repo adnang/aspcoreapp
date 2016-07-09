@@ -4,7 +4,13 @@ using Newtonsoft.Json;
 
 namespace Playground.Services
 {
-    public class QueryStringService
+
+    public interface IQueryStringService
+    {
+        string ConvertToJson(string queryString);
+    }
+
+    public class QueryStringService : IQueryStringService
     {
         public string ConvertToJson(string queryString)
         {
