@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
@@ -12,22 +13,30 @@ namespace aspnetcoreapp
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env)
         {
+
+            if (env.IsDevelopment())
+            {
+                app.Map("/hello", HandleHello);
+            }
+            app.Run(context => 
+            {
+                return context.Response.WriteAsync("In production");  
+            });
+        }
+
+        private void HandleHello(IApplicationBuilder app)
+        {
             app.Run(context =>
             {
-                if (env.IsDevelopment())
-                {
+                var x = context.Request.QueryString.Value.Substring(1).Split('&');
 
-                    var x = context.Request.QueryString.Value.Substring(1).Split('&');
+                var queryParams = new Dictionary<string, string>();
 
-                    var queryParams = new Dictionary<string, string>();
+                x.Select(s => s.Split('='))
+                    .ToList()
+                    .ForEach(ss => queryParams.Add(ss[0], ss[1]));
 
-                    x.Select(s => s.Split('='))
-                        .ToList()
-                        .ForEach(ss => queryParams.Add(ss[0], ss[1]));
-
-                    return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));
-                }
-                return context.Response.WriteAsync("In production");
+                return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));        
             });
         }
 
