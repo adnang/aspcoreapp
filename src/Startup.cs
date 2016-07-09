@@ -9,20 +9,25 @@ namespace aspnetcoreapp
 {
     public class Startup
     {
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, 
+                              IHostingEnvironment env)
         {
-
             app.Run(context =>
             {
-                var x = context.Request.QueryString.Value.Substring(1).Split('&');
+                if (env.IsDevelopment())
+                {
 
-                var queryParams = new Dictionary<string, string>();
+                    var x = context.Request.QueryString.Value.Substring(1).Split('&');
 
-                x.Select(s => s.Split('='))
-                    .ToList()
-                    .ForEach(ss => queryParams.Add(ss[0], ss[1]));
+                    var queryParams = new Dictionary<string, string>();
 
-                return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));
+                    x.Select(s => s.Split('='))
+                        .ToList()
+                        .ForEach(ss => queryParams.Add(ss[0], ss[1]));
+
+                    return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));
+                }
+                return context.Response.WriteAsync("In production");
             });
         }
 

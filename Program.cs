@@ -8,13 +8,14 @@ namespace ConsoleApplication
         public static void Main(string[] args)
         {
 
-            var host = new WebHostBuilder()
+            var hostBuilder = new WebHostBuilder()
                 .UseKestrel()
-                .UseStartup<Startup>()
-                .Build();
+                .UseStartup<Startup>();
 
-            host.Run();
-
+            if (args.Length > 0)    
+                hostBuilder.UseEnvironment(args[0]);
+            
+            hostBuilder.Build().Run();
         }
     }
 }
