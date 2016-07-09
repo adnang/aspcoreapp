@@ -19,7 +19,7 @@ namespace Playground.Services
             return ToJson(queryParams);
         }
 
-        private string ToJson(Dictionary<string, string> dict)
+        private string ToJson(IDictionary<string, string> dict)
         {
             return JsonConvert.SerializeObject(dict);
         }
