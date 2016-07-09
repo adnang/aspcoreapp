@@ -10,7 +10,7 @@ namespace aspnetcoreapp
     public class Startup
     {
         public void Configure(IApplicationBuilder app)
-        {   
+        {
 
             app.Run(context =>
             {
@@ -20,13 +20,14 @@ namespace aspnetcoreapp
 
                 x.Select(s => s.Split('='))
                     .ToList()
-                    .ForEach( ss => queryParams.Add(ss[0], ss[1]));
+                    .ForEach(ss => queryParams.Add(ss[0], ss[1]));
 
                 return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));
             });
         }
 
-        private string ToJson(Dictionary<string, string> dict){
+        private string ToJson(Dictionary<string, string> dict)
+        {
             return JsonConvert.SerializeObject(dict);
         }
     }
