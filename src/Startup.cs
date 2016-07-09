@@ -1,48 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace aspnetcoreapp
+namespace Playground.App
 {
     public class Startup
     {
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env)
         {
-
-            if (env.IsDevelopment())
-            {
-                app.Map("/hello", HandleHello);
-            }
-            app.Run(context => 
-            {
-                return context.Response.WriteAsync("In production");  
-            });
-        }
-
-        private void HandleHello(IApplicationBuilder app)
-        {
+            app.UseMvc();
             app.Run(context =>
             {
-                var x = context.Request.QueryString.Value.Substring(1).Split('&');
-
-                var queryParams = new Dictionary<string, string>();
-
-                x.Select(s => s.Split('='))
-                    .ToList()
-                    .ForEach(ss => queryParams.Add(ss[0], ss[1]));
-
-                return context.Response.WriteAsync("Hello World! -- " + ToJson(queryParams));        
+                return context.Response.WriteAsync("In production");
             });
         }
 
-        private string ToJson(Dictionary<string, string> dict)
+        public void ConfigureServices(IServiceCollection services)
         {
-            return JsonConvert.SerializeObject(dict);
+            services.AddMvcCore();
         }
     }
 }

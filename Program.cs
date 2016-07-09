@@ -1,7 +1,7 @@
-﻿using aspnetcoreapp;
+﻿using Playground.App;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ConsoleApplication
+namespace Playground
 {
     public class Program
     {
