@@ -10,6 +10,7 @@ namespace ConsoleApplication
 
             var hostBuilder = new WebHostBuilder()
                 .UseKestrel()
+                .UseEnvironment(EnvironmentName.Development)
                 .UseStartup<Startup>();
 
             if (args.Length > 0)    
