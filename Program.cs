@@ -14,7 +14,6 @@ namespace ConsoleApplication
                 .Build();
 
             host.Run();
-            
 
         }
     }
